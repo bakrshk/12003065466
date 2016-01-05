@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
+
+public class ArrayListHeap {
+
+    private List<Integer> a;
+
+    public ArrayListHeap() {
+        a = new ArrayList<>();
+    }
+
+private void bubbleDown(int n) {
+        int minChildIndex = minChildIndex(n);
+        while (minChildIndex != -1 && a.get(minChildIndex) < a.get(n)) {
+            swap(minChildIndex, n);
+            n = minChildIndex;
+            minChildIndex = minChildIndex(n);
+        }
+}
+
+    public boolean isHeap() {
+        for (int i = 1; i < a.size(); ++i) {
+            if (par(i) >= 0) {
+                if (a.get(par(i)) > a.get(i)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void swap(int i, int j) {
+        int tmp = a.get(i);
+        a.set(i, a.get(j));
+        a.set(j, tmp);
+    }
+
+    @Override
+    public String toString() {
+        return a.toString();
+    }
+}
